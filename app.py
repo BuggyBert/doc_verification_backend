@@ -1,7 +1,11 @@
 from flask import Flask, request, jsonify
-from predict import predict_document
+from flask_cors import CORS  # Import CORS to handle cross-origin requests
+from predict import predict_document  # Import your prediction function
 
 app = Flask(__name__)
+
+# Allow all cross-origin requests
+CORS(app)  # This will enable CORS for all routes
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -17,4 +21,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
-
