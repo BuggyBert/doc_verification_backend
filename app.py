@@ -5,7 +5,7 @@ from predict import predict_document  # Import your prediction function
 app = Flask(__name__)
 
 # Allow all cross-origin requests
-CORS(app)  # This will enable CORS for all routes
+CORS(app, origins=["*"])  # Allow all origins for now, you can restrict it later
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -16,8 +16,11 @@ def predict():
     if file.filename == '':
         return jsonify({'error': 'Empty filename'}), 400
 
+    # Print debug information for incoming request
+    print(f"File received: {file.filename}")
+
     result = predict_document(file)
     return jsonify({'result': result})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)  # Enable debug mode for more verbose logs

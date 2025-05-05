@@ -31,4 +31,5 @@ def predict_document(file):
         return 'Real Document' if prediction == 1 else 'Fake Document'
 
     except Exception as e:
+        print(f"Error: {str(e)}")  # Added logging for better error tracing
         return f'Error: {str(e)}'
